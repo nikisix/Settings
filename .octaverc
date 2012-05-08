@@ -1,0 +1,2 @@
+gnuplot_binary("/Applications/Gnuplot.app/Contents/Resources/bin/gnuplot");
+cd '/Users/ntomasino/Dropbox/nick.w.tomasino@gmail.com/code/machine learning/mlclass-ex1/'
