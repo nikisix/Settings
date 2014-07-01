@@ -1,12 +1,29 @@
 " Sample .vimrc file by Martin Brochhaus
 " Zenterprises INC
 
-
 " Automatic reloading of .vimrc
  autocmd! bufwritepost .vimrc source %
 
+" home and end, page up and page down mappings 
+ noremap H <home>
+ vnoremap H <home>
+ noremap L <end>
+ vnoremap L <end>
+ noremap K <pageup>
+ vnoremap K <pageup>
+ noremap J <pagedown>
+ vnoremap J <pagedown>
 
-" Better copy & paste
+" Change between files more quickly when editing multiple files
+" use :files to see all open files
+ nnoremap b :buffers<CR>
+ nnoremap ` :buffers<CR>:buffer<SPACE>
+
+" Jump Between Tags (forwards and back respectively)
+ nnoremap <C-u> <C-]> 
+ nnoremap <C-y> <C-t>
+
+" tBetter copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
 
@@ -28,10 +45,7 @@
 " Bind nohl
 " Removes highlight of your last search
 " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
- noremap <C-n> :nohl<CR>
- vnoremap <C-n> :nohl<CR>
- inoremap <C-n> :nohl<CR>
-
+ noremap <leader>n :nohl<CR>
 
 " Quicksave command
  nnoremap <C-A> :update<CR>
@@ -39,6 +53,7 @@
  inoremap <C-A> <C-O>:update<CR>
 
  nnoremap s :update<CR>
+ nnoremap w :update<CR>
 
 " Quick quit command
  noremap <Leader>e :quit<CR>  " Quit current window
@@ -96,7 +111,7 @@
  set nowrap  " don't automatically wrap on load
  set fo-=t   " don't automatically wrap text when typing
  set colorcolumn=80
- highlight ColorColumn ctermbg=233
+ highlight ColorColumn ctermbg=333
 
 
 " easier formatting of paragraphs
@@ -143,7 +158,7 @@
 
 "Load plugins from pathogen and vimballs in the .vim/ directory
 execute pathogen#infect()
-filetype plugin on
+filetype plugin on "might change to just 'filetype on'
 
 
 "Route the semi-colon as a colon to type commands faster
@@ -189,14 +204,37 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 autocmd vimenter * if !argc() | NERDTree | endif
 
 " ============================================================================
+" General IDE Setup
+" ============================================================================
+"Folding
+"zM fold all
+"zR unfold all
+autocmd FileType c setlocal foldmethod=syntax
+autocmd FileType c nnoremap f zM
+autocmd FileType c nnoremap F zR
+
+autocmd FileType java setlocal foldmethod=indent
+autocmd FileType java nnoremap f zm
+autocmd FileType java nnoremap F zR
+
+"Tags 
+" ctags -R src/  -- sets up a tags file which allows definition jumping
+" with Ctrl-] and Ctrl-T to jump back. ( or g] )
+"semicolon means it starts in the cur dir and searches up directories until it
+"hits a tags file
+set tags=tags;
+
+set completeopt+=longest
+
+" ============================================================================
 " Python IDE Setup
 " ============================================================================
 "
 "Simple compile/run scripts
-map <F8> :update<CR> :!python %<CR>
+autocmd FileType py map <F8> :update<CR> :!python %<CR>
 
 "Quick code commenting 
-map c i#<C-c><left> 
+autocmd FileType py map c i#<C-c><left> 
 
 
 " --Nah-- Settings for vim-powerline
@@ -270,7 +308,27 @@ map c i#<C-c><left>
 " Python folding
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
- set nofoldenable
+
+" script type
+"ftplugin
+" 
+"description
+"Folding goes like this: 
+"
+"1. Only top level class or function definitions are folded (no nesting) 
+"2. Folding is done one line after the class or function definition, so 
+"    for example the line 'class foo( bar )' is right above the fold 
+"3. Fold text is the first line of the corresponding docstring (if any) 
+"    together with the number of folded lines 
+"4. Toggle all folds on/off with the key F 
+"5. Toggle the fold under the cursor on/off with the key f 
+"6. In some rare cases folding can break down which can be fixed by :call
+"ReFold() 
+"    The reason for this break down is not known sometimes it happens when
+"jumping 
+"    between different files using tags.
+set nofoldenable
+
 
 "=======================
 " Clang -- C and C++ IDE
@@ -282,19 +340,48 @@ map c i#<C-c><left>
 " Ctrl+]    take you to function def
 " Ctrl+t    takes you back
 "=======================
-""let g:clang_use_library = 1 
-""let g:clang_library_path = "/usr/lib/"
+"
+let g:clang_use_library = 1 
+let g:clang_library_path = "/usr/lib/"
 let g:clang_complete_patterns = 1
 let g:clang_auto_select = 1
 let g:clang_complete_copen = 1
 ""let g:clang_periodic_quickfix = 1
 let g:clang_snippets = 1
 let g:clang_user_options='-std=gcc' 
-map <F2>  :call g:ClangUpdateQuickFix()<CR>
+autocmd FileType c map <F2>  :call g:ClangUpdateQuickFix()<CR>
 
 "Simple compile/run scripts
-map <F4> :update<CR> :!gcc % -o %.out -lm <CR>
-map <F3> :!./%.out<CR>
+autocmd FileType c map <F4> :update<CR> :!gcc % -o %.out -lm <CR>
+autocmd FileType c map <F3> :!./%.out<CR>
+
+"Debugging with gdb
+"break <linenumber>     sets a breakpoint on that line
+"run    runs the program
+"step   steps through the code
+"continue   continues to next breakpoint
+"map <F6> :update<CR> :!gcc % -g -o %.out -lm <CR> :!gdb %.out<CR>
+
+"Debugging with cgdb
+"git clone git://github.com/cgdb/cgdb.git
+autocmd FileType c map <F5> :update<CR> :!gcc % -g -o %.out -lm <CR> :!cgdb %.out<CR>
 
 "Quick code commenting 
-nnoremap C i//<C-c><left><left> 
+autocmd FileType c nnoremap c i/**/<left><left>
+
+" ============================================================================
+" Java IDE Setup
+" ============
+" http://vim.sourceforge.net/scripts/script.php?script_id=1785
+" 
+" Clone below into ~/.vim/bundle for pathogen to auto-install
+" https://github.com/vim-scripts/javacomplete
+" Ctrl-X Ctrl-O opens up autocomplete by default
+" ============================================================================
+autocmd Filetype java,groovy,scala setlocal omnifunc=javacomplete#Complete
+"autocmd Filetype java,groovy,scala setlocal omnifunc=javacomplete#Complete
+autocmd Filetype java,groovy,scala setlocal completefunc=javacomplete#CompleteParamsInfo
+autocmd Filetype java,groovy,scala inoremap . .<C-x><C-O>
+
+" Commenting
+autocmd FileType java,groovy,scala nnoremap c i//<ESC>

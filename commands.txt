@@ -1,0 +1,20 @@
+#download gmail inbox
+curl -u nicolai.tesela --silent "https://mail.google.com/mail/feed/atom" | perl -ne 'print "\t" if /<name>/; print "$2\n" if /<(title|name)>(.*)<\/\1>/;'
+
+#choose which version of java to run
+sudo /usr/sbin/update-alternatives --config java
+weather -ikcmi
+
+#open an image from teh commandline
+feh
+fbi?
+
+#commandline rss feed reader
+newsbeuter
+news
+
+#text-based browser
+elinks
+
+#open a csv file in spreadsheet calculator (sc)
+file.csv | psc -k -d, | sc
