@@ -1,0 +1,244 @@
+" Automatic reloading of .vimrc
+ autocmd! bufwritepost .vimrc source %
+
+" home and end, page up and page down mappings 
+ noremap H <home>
+ vnoremap H <home>
+ noremap L <end>
+ vnoremap L <end>
+ noremap K <pageup>
+ vnoremap K <pageup>
+ noremap J <pagedown>
+ vnoremap J <pagedown>
+
+" Change between files more quickly when editing multiple files
+" use :files to see all open files
+ nnoremap b :buffers<CR>
+ nnoremap ` :buffers<CR>:buffer<SPACE>
+
+" Jump Between Tags (forwards and back respectively)
+ nnoremap <C-u> <C-]> 
+ nnoremap <C-y> <C-t>
+
+" tBetter copy & paste
+" When you want to paste large blocks of code into vim, press F2 before you
+" paste. At the bottom you should see ``-- INSERT (paste) --``.
+" vnoremap <C-c> "*y need to compile with +clipboard for this
+" set pastetoggle=<F2>
+ set clipboard=unnamed
+
+
+" Mouse and backspace
+"" set mouse=a  " on OSX press ALT and click
+"" set bs=2     " make backspace behave like normal again
+
+
+" Rebind <Leader> key
+" I like to have it here becuase it is easier to reach than the default and
+" it is next to ``m`` and ``n`` which I use for navigating between tabs.
+ let mapleader = ","
+
+
+" Bind nohl
+" Removes highlight of your last search
+" ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
+ noremap <leader>n :nohl<CR>
+
+" Quicksave command
+ nnoremap <C-A> :update<CR>
+ vnoremap <C-A> <C-C>:update<CR>
+ inoremap <C-A> <C-O>:update<CR>
+
+ nnoremap s :update<CR>
+ nnoremap w :update<CR>
+
+" Quick quit command
+ noremap <Leader>e :quit<CR>  " Quit current window
+ noremap <Leader>E :qa!<CR>   " Quit all windows
+
+ nnoremap q :quit<CR>
+
+" bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
+" Every unnecessary keystroke that can be saved is good for your health :)
+ map <c-j> <c-w>j
+ map <c-k> <c-w>k
+ map <c-l> <c-w>l
+ map <c-h> <c-w>h
+
+
+" easier moving between tabs
+ map <Leader>n <esc>:tabprevious<CR>
+ map <Leader>m <esc>:tabnext<CR>
+
+
+" map sort function to a key
+ vnoremap <Leader>s :sort<CR>
+
+
+" easier moving of code blocks
+" Try to go into visual mode (v), then select several lines of code here and
+" then press ``>`` several times.
+ vnoremap < <gv  " better indentation
+ vnoremap > >gv  " better indentation
+
+
+" Show whitespace
+" MUST be inserted BEFORE the colorscheme command
+"" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"" au InsertLeave * match ExtraWhitespace /\s\+$/
+
+
+" Color scheme
+" mkdir -p ~/.vim/colors && cd ~/.vim/colors
+" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+"" set t_Co=256
+"" color wombat256mod
+
+
+" Enable syntax highlighting
+" You need to reload this file for the change to apply
+ ""filetype off
+ ""filetype plugin indent on
+ ""syntax on
+
+
+" Showing line numbers and length
+"" set number  " show line numbers
+ set tw=79   " width of document (used by gd)
+ set nowrap  " don't automatically wrap on load
+ set fo-=t   " don't automatically wrap text when typing
+ set colorcolumn=80
+ highlight ColorColumn ctermbg=333
+ hi CSVColumnEven term=bold ctermbg=4 guibg=DarkBlue                             
+ hi CSVColumnOdd  term=bold ctermbg=5 guibg=DarkMagenta
+
+" easier formatting of paragraphs
+"" vmap Q gq
+"" nmap Q gqap
+
+
+" Useful settings
+"" set history=700
+"" set undolevels=700
+
+
+" Real programmers don't use TABs but spaces
+"" set tabstop=4
+"" set softtabstop=4
+"" set shiftwidth=4
+"" set shiftround
+"" set expandtab
+
+
+" Make search case insensitive
+ set hlsearch
+ set incsearch
+ set ignorecase
+ set smartcase
+
+
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+ set nobackup
+ set nowritebackup
+ set noswapfile
+
+
+" Setup Pathogen to manage your plugins
+" mkdir -p ~/.vim/autoload ~/.vim/bundle
+" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
+" Now you can install any plugin into a .vim/bundle/plugin-name/ folder
+"" call pathogen#infect()
+
+" =====================
+" My Stuff
+" ====================
+
+"Load plugins from pathogen and vimballs in the .vim/ directory
+""execute pathogen#infect()
+filetype plugin on "might change to just 'filetype on'
+
+
+"Route the semi-colon as a colon to type commands faster
+nnoremap ; :
+
+
+" Real programmers don't use TABs but spaces
+set ls=2 
+set ts=4
+set tabstop=4 " size of a hard tabstop
+set expandtab " always uses spaces instead of tab characters
+set softtabstop=4 " Sets the number of columns for a TAB
+set shiftwidth=4 " for block comments
+set nocompatible
+set backspace=2
+set ignorecase
+
+
+"Status line - show the percentage through a file 
+set statusline +=\ %P 
+""set statusline +=%4*\ %<%F%*            "full path
+
+
+"Turn on syntax highlighting
+syntax on
+
+
+"Get home and end to work on osx
+""map  <Esc>[7~ <Home>
+""map  <Esc>[8~ <End>
+""imap <Esc>[7~ <Home>
+""imap <Esc>[8~ <End>
+
+
+" ============================================================================
+" General IDE Setup
+" ============================================================================
+"Folding
+"zM fold all
+"zR unfold all
+autocmd FileType c setlocal foldmethod=syntax
+autocmd FileType c nnoremap f zM
+autocmd FileType c nnoremap F zR
+
+autocmd FileType java setlocal foldmethod=indent
+autocmd FileType java nnoremap f zm
+autocmd FileType java nnoremap F zR
+
+"Tags 
+" ctags -R src/  -- sets up a tags file which allows definition jumping
+" with Ctrl-] and Ctrl-T to jump back. ( or g] )
+"semicolon means it starts in the cur dir and searches up directories until it
+"hits a tags file
+set tags=tags;
+
+set completeopt+=longest
+
+" ============================================================================
+" Python IDE Setup
+" ============================================================================
+"
+"Simple compile/run scripts
+autocmd FileType py map <F8> :update<CR> :!python %<CR>
+
+"Quick code commenting 
+autocmd FileType py map c i#<C-c><left> 
+
+set nofoldenable
+
+"Simple compile/run scripts
+autocmd FileType c map <F4> :update<CR> :!gcc % -o %.out -lm <CR>
+autocmd FileType c map <F3> :!./%.out<CR>
+
+"Debugging with gdb
+"break <linenumber>     sets a breakpoint on that line
+"run    runs the program
+"step   steps through the code
+"continue   continues to next breakpoint
+"map <F6> :update<CR> :!gcc % -g -o %.out -lm <CR> :!gdb %.out<CR>
+
+"Quick code commenting 
+autocmd FileType c nnoremap c i/**/<left><left>
+
+" Commenting
+autocmd FileType java,groovy,scala nnoremap c i//<ESC>
