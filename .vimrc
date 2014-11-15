@@ -1,6 +1,62 @@
 " Sample .vimrc file by Martin Brochhaus
 " Zenterprises INC
+"===================VUNDLE========================================
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
+"ConqueTerm Warning
+autocmd! CursorHoldI
+autocmd! CursorMovedI
+
+" set the runtime path to include Vundle and initialize
+ set rtp+=~/.vim/bundle/Vundle.vim
+ call vundle#begin()
+" Plugin 'vim-scripts/Command-T'
+ Plugin 'vim-scripts/csv.vim'
+ Plugin 'Valloric/YouCompleteMe'
+ Plugin 'scrooloose/nerdtree'
+ Plugin 'carlobaldassi/ConqueTerm'
+ " alternatively, pass a path where Vundle should install plugins
+ "call vundle#begin('~/some/path/here')
+
+ " let Vundle manage Vundle, required
+ Plugin 'gmarik/Vundle.vim'
+
+ " The following are examples of different formats supported.
+ " Keep Plugin commands between vundle#begin/end.
+ " plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+ " plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+ " Git plugin not hosted on GitHub
+ "Plugin 'git://git.wincent.com/command-t.git'
+ " git repos on your local machine (i.e. when working on your own plugin)
+ "Plugin 'file:///home/gmarik/path/to/plugin'
+ " The sparkup vim script is in a subdirectory of this repo called vim.
+ " Pass the path to set the runtimepath properly.
+ " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+ " Avoid a name conflict with L9
+ "Plugin 'user/L9', {'name': 'newL9'}
+
+ " All of your Plugins must be added before the following line
+ call vundle#end()            " required
+ filetype plugin indent on    " required
+ " To ignore plugin indent changes, instead use:
+ "filetype plugin on
+ "
+ " Brief help
+ " :PluginList       - lists configured plugins
+ " :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+ " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      
+"- confirms removal of unused plugins; append `!` to
+" auto-approve removal
+ "
+ " see :h vundle for more details or wiki for FAQ
+ " Put your non-Plugin stuff after this line
+"=================================================================
+"
 " Automatic reloading of .vimrc
  autocmd! bufwritepost .vimrc source %
 
@@ -26,9 +82,9 @@
 " tBetter copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
-
+" vnoremap <C-c> "*y need to compile with +clipboard for this
 " set pastetoggle=<F2>
-" set clipboard=unnamed
+ set clipboard=unnamed
 
 
 " Mouse and backspace
@@ -53,7 +109,7 @@
  inoremap <C-A> <C-O>:update<CR>
 
  nnoremap s :update<CR>
- nnoremap w :update<CR>
+ nnoremap w ge
 
 " Quick quit command
  noremap <Leader>e :quit<CR>  " Quit current window
@@ -63,15 +119,16 @@
 
 " bind Ctrl+<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
 " Every unnecessary keystroke that can be saved is good for your health :)
- map <c-j> <c-w>j
- map <c-k> <c-w>k
- map <c-l> <c-w>l
- map <c-h> <c-w>h
+ noremap <c-j> <c-w>j
+ noremap <c-k> <c-w>k
+ noremap <c-l> <c-w>l
+ inoremap <c-l> <c-w>l
+ noremap <c-h> <c-w>h
 
 
 " easier moving between tabs
- map <Leader>n <esc>:tabprevious<CR>
- map <Leader>m <esc>:tabnext<CR>
+" map <Leader>n <esc>:tabprevious<CR>
+" map <Leader>m <esc>:tabnext<CR>
 
 
 " map sort function to a key
@@ -106,13 +163,14 @@
 
 
 " Showing line numbers and length
- set number  " show line numbers
- set tw=79   " width of document (used by gd)
+"" set number  " show line numbers
+ set textwidth=120   " width of document (used by gd)
  set nowrap  " don't automatically wrap on load
  set fo-=t   " don't automatically wrap text when typing
- set colorcolumn=80
- highlight ColorColumn ctermbg=333
-
+ set colorcolumn=120
+ highlight ColorColumn ctermbg=DarkGrey
+ hi CSVColumnEven term=bold ctermbg=4 guibg=DarkBlue                             
+ hi CSVColumnOdd  term=bold ctermbg=darkgrey guibg=DarkGrey
 
 " easier formatting of paragraphs
 "" vmap Q gq
@@ -157,7 +215,7 @@
 " ====================
 
 "Load plugins from pathogen and vimballs in the .vim/ directory
-execute pathogen#infect()
+""execute pathogen#infect()
 filetype plugin on "might change to just 'filetype on'
 
 
@@ -178,13 +236,16 @@ set ignorecase
 
 
 "Status line - show the percentage through a file 
-""set statusline +=\ %P 
+set statusline =%f\ %P 
 ""set statusline +=%4*\ %<%F%*            "full path
 
 
 "Turn on syntax highlighting
 syntax on
-
+highlight Comment ctermfg='darkgrey'
+highlight Number ctermfg='blue'
+highlight String ctermfg='yellow'
+highlight Float ctermfg='blue'
 
 "Get home and end to work on osx
 ""map  <Esc>[7~ <Home>
@@ -192,6 +253,30 @@ syntax on
 ""imap <Esc>[7~ <Home>
 ""imap <Esc>[8~ <End>
 
+"Cursor Changes depending on mode
+" Enable CursorLine
+set cursorline
+set cursorcolumn
+
+" Default Colors for CursorLine
+highlight  CursorLine ctermbg=None ctermfg=None
+highlight  CursorColumn ctermbg=DarkGrey ctermfg=None
+
+" Change Color when entering Insert Mode
+"autocmd InsertEnter * hightlight CursorLine ctermbg=None ctermfg=None
+"autocmd InsertEnter * highlight Cursor guifg=red ctermfg=blue
+
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * highlight CursorLine ctermbg=None ctermfg=None
+autocmd InsertLeave * highlight Cursor guifg=red
+
+"PLUGINS
+"
+"ConqueTerm
+"allow window switching while conque is still in insert mode
+let g:ConqueTerm_CWInsert = 0
+let g:ConqueTerm_SendVisKey = '<F9>'
+"nnoremap <C-m> V"<F9>"
 
 "NERDTree plugin
 "If nerdtree's the only open window when you close vi, then close the nerdtree window too
@@ -206,16 +291,31 @@ autocmd vimenter * if !argc() | NERDTree | endif
 " ============================================================================
 " General IDE Setup
 " ============================================================================
+
+"not sure about these exactly
+"autocmd BufNewFile,BufRead *.py set ft=python
+"autocmd BufNewFile,BufRead *.json set ft=javascript
+"autocmd BufNewFile,BufRead *.conf set ft=javascript
+"autocmd BufNewFile,BufRead *.config set ft=javascript
+"
+"au! BufRead,BufNewFile *.json setfiletype json 
+"au! BufRead,BufNewFile *.conf setfiletype json 
+"au! BufRead,BufNewFile *.config setfiletype json 
+"au! BufRead,BufNewFile *.scala setfiletype scala
+"au! BufRead,BufNewFile *.py setfiletype python
+"au! BufRead,BufNewFile *.c setfiletype c
+
 "Folding
 "zM fold all
 "zR unfold all
-autocmd FileType c setlocal foldmethod=syntax
-autocmd FileType c nnoremap f zM
-autocmd FileType c nnoremap F zR
+set foldmethod=indent
+set nofoldenable
+nnoremap f zm
+nnoremap F zr
 
-autocmd FileType java setlocal foldmethod=indent
-autocmd FileType java nnoremap f zm
-autocmd FileType java nnoremap F zR
+"autocmd FileType c setlocal foldmethod=syntax
+"autocmd FileType c nnoremap f zM
+"autocmd FileType c nnoremap F zR
 
 "Tags 
 " ctags -R src/  -- sets up a tags file which allows definition jumping
@@ -232,6 +332,10 @@ set completeopt+=longest
 "
 "Simple compile/run scripts
 autocmd FileType py map <F8> :update<CR> :!python %<CR>
+
+"Execute the visually selected text
+"autocmd FileType py map <C-CR> :'<,'>w !python
+vnoremap <C-CR> :'<,'>w !python
 
 "Quick code commenting 
 autocmd FileType py map c i#<C-c><left> 

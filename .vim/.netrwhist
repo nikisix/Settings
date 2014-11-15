@@ -1,9 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/zen/code/merc/magarena/release/Magarena/history'
-let g:netrw_dirhist_2='/home/zen/code/merc/magarena/release/Magarena/duels'
-let g:netrw_dirhist_3='/home/zen/code/merc/magarena/release/Magarena'
-let g:netrw_dirhist_4='/home/zen/code/merc/magarena/release/Magarena/duels'
-let g:netrw_dirhist_5='/home/zen/code/merc/magarena/release/Magarena/duel_logs'
-let g:netrw_dirhist_6='/home/zen/code/merc/magarena/src/magic/test'
-let g:netrw_dirhist_7='/home/zen/temp'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/ntomasino/code/git/recommender_engine'
+let g:netrw_dirhist_2='/Users/ntomasino'
+let g:netrw_dirhist_3='/Users/ntomasino/Documents/osm'
