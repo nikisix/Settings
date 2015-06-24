@@ -111,10 +111,10 @@ let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
  nnoremap b :buffers<CR>
  nnoremap ` :buffers<CR>:buffer<SPACE>
 
-" Jump Between Tags (forwards and back respectively)
+"Jump Between Tags - forward, back, and cycle (respectively)
  nnoremap <C-u> <C-]> 
- nnoremap <C-i> :tn<CR>
  nnoremap <C-y> <C-t>
+ nnoremap <C-i> :tn<CR>
 
 " tBetter copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
@@ -268,7 +268,6 @@ filetype plugin on "might change to just 'filetype on'
 "Route the semi-colon as a colon to type commands faster
 nnoremap ; :
 
-
 " Real programmers don't use TABs but spaces
 set ls=2 
 set ts=4
@@ -292,12 +291,6 @@ highlight Comment ctermfg='darkgrey'
 highlight Number ctermfg='blue'
 highlight String ctermfg='yellow'
 highlight Float ctermfg='blue'
-
-"Get home and end to work on osx
-""map  <Esc>[7~ <Home>
-""map  <Esc>[8~ <End>
-""imap <Esc>[7~ <Home>
-""imap <Esc>[8~ <End>
 
 "Cursor Changes depending on mode
 " Enable CursorLine
@@ -553,8 +546,8 @@ autocmd FileType text             let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
-"noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-"noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>C :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+"Title Blocks
 noremap <silent> <leader>t :s/^/[[ /e<CR>:nohlsearch<CR> :s/$/ ]]/e<CR>:nohlsearch<CR>
