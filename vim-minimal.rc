@@ -18,10 +18,6 @@
  nnoremap b :buffers<CR>
  nnoremap ` :buffers<CR>:buffer<SPACE>
 
-" Jump Between Tags (forwards and back respectively)
- nnoremap <C-u> <C-]> 
- nnoremap <C-y> <C-t>
-
 " tBetter copy & paste
  set clipboard=unnamed
 
