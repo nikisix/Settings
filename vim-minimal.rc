@@ -85,14 +85,7 @@
  set nowritebackup
  set noswapfile
 
-" =====================
-" My Stuff
-" ====================
-
-"Load plugins from pathogen and vimballs in the .vim/ directory
-""execute pathogen#infect()
 filetype plugin on "might change to just 'filetype on'
-
 
 "Route the semi-colon as a colon to type commands faster
 nnoremap ; :
@@ -110,8 +103,6 @@ set ignorecase
 
 "Status line - show the percentage through a file 
 set statusline +=\ %P 
-""set statusline +=%4*\ %<%F%*            "full path
-
 
 "Turn on syntax highlighting
 syntax on
@@ -136,36 +127,3 @@ autocmd FileType java nnoremap F zR
 "semicolon means it starts in the cur dir and searches up directories until it
 "hits a tags file
 set tags=tags;
-
-"Autocompletions (ctrl-x ctrl-u => brings up autocompletion dialogue. 
-"ctrl-n - next and ctrl-p - previous
-set completeopt+=longest
-
-" ============================================================================
-" Python IDE Setup
-" ============================================================================
-"
-"Simple compile/run scripts
-autocmd FileType py map <F8> :update<CR> :!python %<CR>
-
-"Quick code commenting 
-autocmd FileType py map c i#<C-c><left> 
-
-set nofoldenable
-
-"Simple compile/run scripts
-autocmd FileType c map <F4> :update<CR> :!gcc % -o %.out -lm <CR>
-autocmd FileType c map <F3> :!./%.out<CR>
-
-"Debugging with gdb
-"break <linenumber>     sets a breakpoint on that line
-"run    runs the program
-"step   steps through the code
-"continue   continues to next breakpoint
-"map <F6> :update<CR> :!gcc % -g -o %.out -lm <CR> :!gdb %.out<CR>
-
-"Quick code commenting 
-autocmd FileType c nnoremap c i/**/<left><left>
-
-" Commenting
-autocmd FileType java,groovy,scala nnoremap c i//<ESC>

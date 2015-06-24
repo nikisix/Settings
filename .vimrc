@@ -1,8 +1,18 @@
-" Sample .vimrc file by Martin Brochhaus
-" Zenterprises INC
+"" Zenterprises INC
+" Inspirations are listed throughout via links including the following:
+" Martin Brochhaus
 "===================VUNDLE========================================
 set nocompatible              " be iMproved, required
 filetype off                  " required
+
+" sum up numbers on multible lines in a visual selection
+"vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g<CR>_j
+"vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g_j<CR>+1!bc<CR>kJ
+"vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g_j<CR>
+"vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>i==<CR><ESC>V:!bc<CR>
+
+"works - just not with whitespace, turn off highlighting
+vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>i==<CR><ESC>V:!bc<CR>
 
 "ConqueTerm Warning
 autocmd! CursorHoldI
@@ -13,9 +23,13 @@ autocmd! CursorMovedI
  call vundle#begin()
 " Plugin 'vim-scripts/Command-T'
  Plugin 'vim-scripts/csv.vim'
+"  Plugin 'jmcantrell/vim-virtualenv'
+ Plugin 'tpope/vim-fugitive'
  Plugin 'Valloric/YouCompleteMe'
  Plugin 'scrooloose/nerdtree'
  Plugin 'carlobaldassi/ConqueTerm'
+ Plugin 'itchyny/calendar.vim'
+" Plugin 'ervandew/supertab'
  " alternatively, pass a path where Vundle should install plugins
  "call vundle#begin('~/some/path/here')
 
@@ -55,6 +69,28 @@ autocmd! CursorMovedI
  "
  " see :h vundle for more details or wiki for FAQ
  " Put your non-Plugin stuff after this line
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+augroup CalendarKey
+    autocmd!
+    autocmd FileType calendar nmap <buffer> f <Plug>(calendar_close_task)
+    "autocmd FileType calendar nunmap <buffer> {key}
+augroup END
+
+"YouCompleteMe Debugging
+let g:ycm_server_keep_logfiles = 0
+let g:ycm_server_log_level = 'debug'
+let g:ycm_path_to_python_interpreter = '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python'
+let g:ycm_auto_trigger = 1
+"let g:ycm_path_to_python_interpreter = '/Users/ntomasino/anaconda/bin/python'
+let g:ycm_filetype_blacklist = {}
+
+"VirtualEnv
+let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
+"SUPERTAB
+"au FileType python set omnifunc=pythoncomplete#Complete
+"let g:SuperTabDefaultCompletionType = "context"
+"set completeopt=menuone,longest,preview
 "=================================================================
 "
 " Automatic reloading of .vimrc
@@ -77,6 +113,7 @@ autocmd! CursorMovedI
 
 " Jump Between Tags (forwards and back respectively)
  nnoremap <C-u> <C-]> 
+ nnoremap <C-i> :tn<CR>
  nnoremap <C-y> <C-t>
 
 " tBetter copy & paste
@@ -85,6 +122,14 @@ autocmd! CursorMovedI
 " vnoremap <C-c> "*y need to compile with +clipboard for this
 " set pastetoggle=<F2>
  set clipboard=unnamed
+
+" Spell checking 
+"change misspelled words from getting highlighted to underlined
+" z= gives a list of suggestions for misspelled words
+hi clear SpellBad
+hi SpellBad cterm=underline
+" setlocal spell spelllang=en_us
+" set spell might work too
 
 
 " Mouse and backspace
@@ -95,7 +140,7 @@ autocmd! CursorMovedI
 " Rebind <Leader> key
 " I like to have it here becuase it is easier to reach than the default and
 " it is next to ``m`` and ``n`` which I use for navigating between tabs.
- let mapleader = ","
+ let mapleader = " "
 
 
 " Bind nohl
@@ -134,7 +179,6 @@ autocmd! CursorMovedI
 " map sort function to a key
  vnoremap <Leader>s :sort<CR>
 
-
 " easier moving of code blocks
 " Try to go into visual mode (v), then select several lines of code here and
 " then press ``>`` several times.
@@ -153,7 +197,9 @@ autocmd! CursorMovedI
 " wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 "" set t_Co=256
 "" color wombat256mod
-
+ if !has('gui_running')
+   set t_Co=256
+ endif
 
 " Enable syntax highlighting
 " You need to reload this file for the change to apply
@@ -164,7 +210,7 @@ autocmd! CursorMovedI
 
 " Showing line numbers and length
 "" set number  " show line numbers
- set textwidth=120   " width of document (used by gd)
+" set textwidth=120   " width of document (used by gd)
  set nowrap  " don't automatically wrap on load
  set fo-=t   " don't automatically wrap text when typing
  set colorcolumn=120
@@ -258,6 +304,15 @@ highlight Float ctermfg='blue'
 set cursorline
 set cursorcolumn
 
+"from http://vim.wikia.com/wiki/Configuring_the_cursor
+"not working ...
+"highlight Cursor ctermfg=white ctermbg=black
+"highlight iCursor ctermfg=white ctermbg=blue
+"set guicursor=n-v-c:block-Cursor
+"set guicursor+=i:ver100-iCursor
+"set guicursor+=n-v-c:blinkon0
+"set guicursor+=i:blinkwait10
+
 " Default Colors for CursorLine
 highlight  CursorLine ctermbg=None ctermfg=None
 highlight  CursorColumn ctermbg=DarkGrey ctermfg=None
@@ -338,7 +393,7 @@ autocmd FileType py map <F8> :update<CR> :!python %<CR>
 vnoremap <C-CR> :'<,'>w !python
 
 "Quick code commenting 
-autocmd FileType py map c i#<C-c><left> 
+" autocmd FileType py map c i#<C-c><left> 
 
 
 " --Nah-- Settings for vim-powerline
@@ -350,10 +405,10 @@ autocmd FileType py map c i#<C-c><left>
 " Settings for ctrlp
 " cd ~/.vim/bundle
 " git clone https://github.com/kien/ctrlp.vim.git
- let g:ctrlp_max_height = 30
- set wildignore+=*.pyc
- set wildignore+=*_build/*
- set wildignore+=*/coverage/*
+" let g:ctrlp_max_height = 30
+" set wildignore+=*.pyc
+" set wildignore+=*_build/*
+" set wildignore+=*/coverage/*
 
 
 " Settings for python-mode
@@ -375,21 +430,21 @@ autocmd FileType py map c i#<C-c><left>
 " cd ~/.vim/bundle
 " git clone git://github.com/davidhalter/jedi-vim.git
 " defaults
- let g:jedi#goto_assignments_command = "<leader>g"
- let g:jedi#goto_definitions_command = "<leader>d"
- let g:jedi#documentation_command = "K"
- let g:jedi#usages_command = "<leader>n"
- let g:jedi#completions_command = "<C-Space>"
- let g:jedi#rename_command = "<leader>r"
- let g:jedi#show_call_signatures = "1"
-
-" prefs
-" use splits not buffers
- let g:jedi#use_splits_not_buffers = "left"
- let g:jedi#usages_command = "<leader>z"
-" let g:jedi#popup_on_dot = 0
+" let g:jedi#goto_assignments_command = "<leader>g"
+" let g:jedi#goto_definitions_command = "<leader>d"
+" let g:jedi#documentation_command = "K"
+" let g:jedi#usages_command = "<leader>n"
+" let g:jedi#completions_command = "<C-Space>"
+" let g:jedi#rename_command = "<leader>r"
+" let g:jedi#show_call_signatures = "1"
+"
+"" prefs
+"" use splits not buffers
+" let g:jedi#use_splits_not_buffers = "left"
+" let g:jedi#usages_command = "<leader>z"
+"  let g:jedi#popup_on_dot = 1
 " let g:jedi#popup_select_first = 0
- map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+"  map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
@@ -445,15 +500,15 @@ set nofoldenable
 " Ctrl+t    takes you back
 "=======================
 "
-let g:clang_use_library = 1 
-let g:clang_library_path = "/usr/lib/"
-let g:clang_complete_patterns = 1
-let g:clang_auto_select = 1
-let g:clang_complete_copen = 1
+"let g:clang_use_library = 1 
+"let g:clang_library_path = "/usr/lib/"
+"let g:clang_complete_patterns = 1
+"let g:clang_auto_select = 1
+"let g:clang_complete_copen = 1
 ""let g:clang_periodic_quickfix = 1
-let g:clang_snippets = 1
-let g:clang_user_options='-std=gcc' 
-autocmd FileType c map <F2>  :call g:ClangUpdateQuickFix()<CR>
+"let g:clang_snippets = 1
+"let g:clang_user_options='-std=gcc' 
+"autocmd FileType c map <F2>  :call g:ClangUpdateQuickFix()<CR>
 
 "Simple compile/run scripts
 autocmd FileType c map <F4> :update<CR> :!gcc % -o %.out -lm <CR>
@@ -468,10 +523,10 @@ autocmd FileType c map <F3> :!./%.out<CR>
 
 "Debugging with cgdb
 "git clone git://github.com/cgdb/cgdb.git
-autocmd FileType c map <F5> :update<CR> :!gcc % -g -o %.out -lm <CR> :!cgdb %.out<CR>
+"autocmd FileType c map <F5> :update<CR> :!gcc % -g -o %.out -lm <CR> :!cgdb %.out<CR>
 
 "Quick code commenting 
-autocmd FileType c nnoremap c i/**/<left><left>
+"autocmd FileType c nnoremap c i/**/<left><left>
 
 " ============================================================================
 " Java IDE Setup
@@ -482,10 +537,24 @@ autocmd FileType c nnoremap c i/**/<left><left>
 " https://github.com/vim-scripts/javacomplete
 " Ctrl-X Ctrl-O opens up autocomplete by default
 " ============================================================================
-autocmd Filetype java,groovy,scala setlocal omnifunc=javacomplete#Complete
 "autocmd Filetype java,groovy,scala setlocal omnifunc=javacomplete#Complete
-autocmd Filetype java,groovy,scala setlocal completefunc=javacomplete#CompleteParamsInfo
-autocmd Filetype java,groovy,scala inoremap . .<C-x><C-O>
+"autocmd Filetype java,groovy,scala setlocal omnifunc=javacomplete#Complete
+"autocmd Filetype java,groovy,scala setlocal completefunc=javacomplete#CompleteParamsInfo
+"autocmd Filetype java,groovy,scala inoremap . .<C-x><C-O>
 
 " Commenting
-autocmd FileType java,groovy,scala nnoremap c i//<ESC>
+"autocmd FileType java,groovy,scala nnoremap c i//<ESC>
+"
+" Commenting blocks of code.
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType text             let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+"noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+"noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>C :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>t :s/^/[[ /e<CR>:nohlsearch<CR> :s/$/ ]]/e<CR>:nohlsearch<CR>
