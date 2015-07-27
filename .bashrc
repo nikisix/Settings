@@ -59,8 +59,6 @@ alias clock='watch -n1 "date '+%D%n%T'|figlet -k"'
 function __cols { head -n1 $1 | gsed 's/,/\n/g' | less; }
 alias cols='__cols'
 
-export PGPASSWORD=DataSci@Production@Protection\!
-
 # alias ipython='ipython --matplotlib osx'
 alias jcwd='cd ~/code/git/intern_training/eng'
 
