@@ -19,11 +19,11 @@ export PATH="/Users/ntomasino/miniconda/bin:$PATH"
 #allow python to run things downloaded by brew
 #alias usepython2='export PYTHONPATH=$PYPATH1:$PYPATH2:$PYPATH3'
 #alias usepython3='export PYTHONPATH=/usr/local/lib/python3.4/site-packages/'
-export PYPATH1=/usr/local/lib/python2.7/site-packages
-export PYPATH2=/Library/Python/2.7/site-packages
-export PYPATH3=/lib/python2.7/site-packages
-export PYPATH4=~/miniconda/pkgs
-export PYTHONPATH=$PYPATH1:$PYPATH2:$PYPATH3
+# export PYPATH1=/usr/local/lib/python2.7/site-packages
+# export PYPATH2=/Library/Python/2.7/site-packages
+# export PYPATH3=/lib/python2.7/site-packages
+# export PYPATH4=~/miniconda/pkgs
+# export PYTHONPATH=$PYPATH1:$PYPATH2:$PYPATH3
 
 export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 
@@ -40,7 +40,7 @@ export HOMEBREW_GITHUB_API_TOKEN=850fbe3c22137c760122bccded5916c785b090c8
 export VMAIL_VIM='/Applications/MacVim.App/Contents/MacOS/Vim'
 #export VMAIL_VIM=gvim
 
-# some more ls aliases
+#some more ls aliases
 alias ll='ls -alhF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -58,8 +58,11 @@ alias csv='__csv'
 alias clock='watch -n1 "date '+%D%n%T'|figlet -k"'
 function __cols { head -n1 $1 | gsed 's/,/\n/g' | less; }
 alias cols='__cols'
+function __killps { kill -9 `ps | grep $1 | head -n1 | cut -f1 -d ' '`; }
+alias killps='__killps'
 
-export PGPASSWORD=DataSci@Production@Protection\!
+# export PGPASSWORD=DataSci@Production@Protection\!
+export PGPASSFILE=~/.pgpass
 
 # alias ipython='ipython --matplotlib osx'
 alias jcwd='cd ~/code/git/intern_training/eng'
@@ -69,3 +72,4 @@ source '/Users/ntomasino/y/google-cloud-sdk/path.bash.inc'
 
 # The next line enables bash completion for gcloud.
 source '/Users/ntomasino/y/google-cloud-sdk/completion.bash.inc'
+alias ff='. /Users/ntomasino/.ff/ff.sh'

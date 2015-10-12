@@ -1,20 +1,114 @@
-#download gmail inbox
-curl -u nicolai.tesela --silent "https://mail.google.com/mail/feed/atom" | perl -ne 'print "\t" if /<name>/; print "$2\n" if /<(title|name)>(.*)<\/\1>/;'
+[[ set up vim on a remote server ]]
+    cd ~;wget raw.githubusercontent.com/nikisix/Settings/master/vim-minimal.rc;mv vim-minimal.rc .vimrc
 
-#choose which version of java to run
-sudo /usr/sbin/update-alternatives --config java
-weather -ikcmi
+sudo tcpdump -i en0 -s 0 -B 524288 -w ./DumpFile01.pcap
 
-#open an image from teh commandline
-feh
-fbi?
+column -s$'\t' columns.txt | cut -f1 -d$'\t' >> "$i"_view.sql
 
-#commandline rss feed reader
-newsbeuter
-news
+inotify
 
-#text-based browser
-elinks
+./manage.py test --settings=settings.unittesting
 
-#open a csv file in spreadsheet calculator (sc)
-file.csv | psc -k -d, | sc
+[[ print on a mac ]]
+    lpr <filename>
+
+    gcloud compute ssh q-warehousedb-master --zone us-central1-b --project mindmixer-warehouse
+
+[[ ssh into master hadoop node ]]
+    gcloud compute --project "mindmixer-warehouse" ssh --zone "us-central1-a" "hadoop-m-qtqe"
+    gcloud compute instances list
+    gcloud compute copy-files --project "mindmixer-warehouse" --zone us-central1-a ./meta hadoop-m-qtqe:~/upload 
+    gcloud compute copy-files --project "mindmixer-warehouse" --zone us-central1-a ./dp_cs_tables.zip q-warehousedb-master:~/census 
+    gcloud compute ssh hadoop-m-qtqe --zone us-central1-a
+    gcloud compute ssh --command hadoop fs -put <filename>
+
+[[ Other Instances ]]
+    gcloud compute ssh filedump --zone us-central1-a --project mindmixer-sidewalk
+    gcloud compute --project "mindmixer-warehouse" ssh --zone "us-central1-a" "odc01"
+
+
+[[ putting data into the hadoop master node ]]
+    # cat sizes.txt | gcloud compute ssh ntomasino@hadoop-m-qtqe --zone us-central1-a --command "/home/hadoop/hadoop-install/bin/hadoop fs -put - /sizes.txt"
+
+    for f in `find . -type f`
+    do 
+        echo "Putting $f into hadoop"
+        cat "$f" | gcloud compute ssh ntomasino@hadoop-m-qtqe --zone us-central1-a --command "/home/hadoop/hadoop-install/bin/hadoop fs -put - $f"
+    done
+
+[[ insert CO infront of each line ]]
+    awk '{$1="CO"$1; print}' full_voting_history_list2.csv | gsed -e 's/\"/''/g' > full_voting_history_list3.csv
+
+[[ swap columns of a csv ]]
+    awk -F, -v OFS=, '{tmp=$1;$1=$2;$2=tmp;print}' toy_2014.csv > toy2_2014.csv
+
+[[ CSCOPE ]]
+    find . -name '*.py' > cscope.files
+    #exclude all migrations from becoming cscope links
+    find . -name 'migrations' -prune -o -name '*.py' > cscope.files
+    #assumes a file titled 'cscope.files' is there and creates a 'cscope.out' file (which contains the x-refs)
+    # -u forces a rebuild on all files, even if nothing changed
+    cscope -b (-u)
+
+[[ KILL_PROCESS_NAME ]]
+    kill -9 `ps | grep $1 | head -n1 | cut -f1 -d ' '`
+
+[[ HADOOP_PRINT_AS_TREE ]]
+    hadoop fs -lsr /mydir | awk '{print $8}' | sed -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
+
+[[ GREP_INCLUDE_OR_EXCLUDE_FILES ]]
+    grep pattern -r --include=\*.{cpp,h} rootdir
+    The syntax for --exclude is identical.
+
+[[ GRAPH_IMAGE ]]
+    dot -Tpng graph1.gv -o graph1.png
+
+[[ Update_SSH_KEY ]]
+    ssh-keygen -R hostname-or-ip
+
+[[ Mount_SMB_share_linux ]]
+    mount.cifs -o username=mmadmin,password=mypass //10.0.4.30/Data /media/z-drive
+    sudo mount.cifs -o rw,username=mmadmin,password=pwd,iocharset=utf8,file_mode=0777,dir_mode=0777 //10.0.4.30/Data /media/z-drive
+
+[[ Terminal_Shortcuts ]]
+    ctrl-a cursor to beginning of line
+    ctrl-e cursor to end of line
+    ctrl-w Cut the last word
+    ctrl-_ Undo
+
+[[ PG_Dumps ]]
+    pg_dump -Fc --table apportion_block_cetroid --table apportion_block_group_centroid_2010 mmpropdata > apportion_tables.dump
+
+[[ ASCII_WARS ]]
+    telnet towel.blinkenlights.nl
+
+[[ INSTALL_GDAL ]]
+    sudo apt-get update
+    sudo apt-get install libgdal-dev
+    sudo apt-get install python-gdal
+
+[[ Quick_Numpy_Setup ]]
+    sudo apt-get install python-psycopg2 numpy pandas sqlalchemy
+
+
+[[ dump data from db ]]
+    echo "COPY apportion_block TO STDOUT DELIMITER ',' CSV HEADER;" | psql -h 104.197.97.118 -U postgres mm2prod > ./apportion_block.csv
+
+[[ copy data up to qa using shp2pgsql ]]
+    shp2pgsql -s 3857 -d -D blk_grp_centroid2010.shp public.science_blockgroupcentroid| psql -h mm2qa -p 5432 -d mm2qa -U postgres
+
+[[ copy single table between databases ]]
+psql databasename -c \
+"\copy (SELECT i, t FROM original_table ORDER BY i) TO STDOUT" | \
+psql databasename -c "\copy copy_table (i, t) FROM STDIN"
+
+[[ secure port-forwarded connect to cloud db ]]
+ssh -i ~/.ssh/google_compute_engine -L5433:127.0.0.1:5433 -vvv 146.148.89.144
+ssh -i ~/.ssh/google_compute_engine -L5433:127.0.0.1:5433 -v warehousedb
+
+[[ update change aggregate subtype of all census columns ]]
+gsed -r -n '/__median__|__mean__/p' columns.txt
+gsed -r 's/(.*)__median__|__mean__(.*)/\1__total__\2/g' columns.txt
+
+[[ diff between last commited file ]]
+git diff HEAD^^ myfile

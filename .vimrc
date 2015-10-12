@@ -1,6 +1,21 @@
 "" Zenterprises INC
 " Inspirations are listed throughout via links including the following:
 " Martin Brochhaus
+"
+"dbext plugin
+"Adding connection profiles is the best way to use dbext, :h dbext.txt has lots of examples of different profiles for different databases.
+"<Leader>sbp - connect to a sql db 
+"<leader>slt - SQL List Table - lists all of the tables of the db
+"<leader>sdt - SQL Describe Table - describes the table whose name is under your cursor
+"<leader>se  - SQL Execute - executes the line your cursor is on (command mode) or all selected text (visual mode)
+  let g:dbext_default_profile_mmpropdata='type=PGSQL:host=psci01:port=5432:dbname=mmpropdata:user=data:passwd=attract2extensive3everyone7boundary17'
+  let g:dbext_default_profile_warehousedb='type=PGSQL:host=warehousedb:port=5432:dbname=mmpropdata:user=postgres:passwd=postgres'
+  let g:dbext_default_profile_qdb01='type=PGSQL:host=146.148.43.234:port=5432:dbname=mm2qa:user=data:passwd=Skill4Forgive1Representative1Hasten12'
+  let g:dbext_default_profile_vagrant='type=PGSQL:host=10.0.10.2:port=5432:dbname=mm2qa:user=postgres'
+  let g:dbext_default_profile_pdbsix='type=PGSQL:host=pdbsix:port=5432:dbname=mm2prod:user=postgres:passwd=mm2pwd'
+"   let g:dbext_default_prompt_for_variables=0
+  let dbext_default_always_prompt_for_variables=-1
+
 "===================VUNDLE========================================
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -21,14 +36,19 @@ autocmd! CursorMovedI
 " set the runtime path to include Vundle and initialize
  set rtp+=~/.vim/bundle/Vundle.vim
  call vundle#begin()
-" Plugin 'vim-scripts/Command-T'
- Plugin 'vim-scripts/csv.vim'
-"  Plugin 'jmcantrell/vim-virtualenv'
- Plugin 'tpope/vim-fugitive'
- Plugin 'Valloric/YouCompleteMe'
+ Plugin 'wolfpython/cscope_map.vim'
+ Plugin 'hrj/vim-DrawIt'
  Plugin 'scrooloose/nerdtree'
  Plugin 'carlobaldassi/ConqueTerm'
  Plugin 'itchyny/calendar.vim'
+ Plugin 'vim-scripts/csv.vim'
+"  Plugin 'vim-scripts/dbext.vim'
+"  Plugin 'Valloric/YouCompleteMe'
+
+" Plugin 'vim-scripts/Command-T'
+"  Plugin 'vim-scripts/EasyGrep'
+"  Plugin 'jmcantrell/vim-virtualenv'
+"  Plugin 'tpope/vim-fugitive'
 " Plugin 'ervandew/supertab'
  " alternatively, pass a path where Vundle should install plugins
  "call vundle#begin('~/some/path/here')
@@ -77,19 +97,21 @@ augroup CalendarKey
     "autocmd FileType calendar nunmap <buffer> {key}
 augroup END
 
+" YCM needs this to work:
+"  let g:ycm_path_to_python_interpreter = '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python'
+
 "YouCompleteMe Debugging
-let g:ycm_server_keep_logfiles = 0
-let g:ycm_server_log_level = 'debug'
-let g:ycm_path_to_python_interpreter = '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python'
-let g:ycm_auto_trigger = 1
-"let g:ycm_path_to_python_interpreter = '/Users/ntomasino/anaconda/bin/python'
-let g:ycm_filetype_blacklist = {}
+" let g:ycm_server_keep_logfiles = 0
+" let g:ycm_server_log_level = 'debug'
+" let g:ycm_auto_trigger = 1
+" "let g:ycm_path_to_python_interpreter = '/Users/ntomasino/anaconda/bin/python'
+" let g:ycm_filetype_blacklist = {}
 
 "VirtualEnv
 let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
 "SUPERTAB
 "au FileType python set omnifunc=pythoncomplete#Complete
-"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = \"context"
 "set completeopt=menuone,longest,preview
 "=================================================================
 "
@@ -111,10 +133,17 @@ let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
  nnoremap b :buffers<CR>
  nnoremap ` :buffers<CR>:buffer<SPACE>
 
-"Jump Between Tags - forward, back, and cycle (respectively)
+"Tags 
+" ctags -R src/  -- sets up a tags file which allows definition jumping
+" with Ctrl-] and Ctrl-T to jump back. ( or g] )
+"semicolon means it starts in the cur dir and searches up directories until it
+"hits a tags file
+set tags=tags;
+
+" Jump Between Tags (forwards and back respectively)
  nnoremap <C-u> <C-]> 
- nnoremap <C-y> <C-t>
  nnoremap <C-i> :tn<CR>
+ nnoremap <C-y> <C-t>
 
 " tBetter copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
@@ -126,10 +155,10 @@ let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
 " Spell checking 
 "change misspelled words from getting highlighted to underlined
 " z= gives a list of suggestions for misspelled words
+" set spell might work too
 hi clear SpellBad
 hi SpellBad cterm=underline
-" setlocal spell spelllang=en_us
-" set spell might work too
+"  setlocal spell spelllang=en_us "uncomment this to allow spell-checking
 
 
 " Mouse and backspace
@@ -211,7 +240,7 @@ hi SpellBad cterm=underline
 " Showing line numbers and length
 "" set number  " show line numbers
 " set textwidth=120   " width of document (used by gd)
- set nowrap  " don't automatically wrap on load
+"  set nowrap  " don't automatically wrap on load
  set fo-=t   " don't automatically wrap text when typing
  set colorcolumn=120
  highlight ColorColumn ctermbg=DarkGrey
@@ -268,6 +297,7 @@ filetype plugin on "might change to just 'filetype on'
 "Route the semi-colon as a colon to type commands faster
 nnoremap ; :
 
+
 " Real programmers don't use TABs but spaces
 set ls=2 
 set ts=4
@@ -292,9 +322,15 @@ highlight Number ctermfg='blue'
 highlight String ctermfg='yellow'
 highlight Float ctermfg='blue'
 
+"Get home and end to work on osx
+""map  <Esc>[7~ <Home>
+""map  <Esc>[8~ <End>
+""imap <Esc>[7~ <Home>
+""imap <Esc>[8~ <End>
+
 "Cursor Changes depending on mode
 " Enable CursorLine
-set cursorline
+" set cursorline
 set cursorcolumn
 
 "from http://vim.wikia.com/wiki/Configuring_the_cursor
@@ -307,7 +343,7 @@ set cursorcolumn
 "set guicursor+=i:blinkwait10
 
 " Default Colors for CursorLine
-highlight  CursorLine ctermbg=None ctermfg=None
+" highlight  CursorLine ctermbg=None ctermfg=None
 highlight  CursorColumn ctermbg=DarkGrey ctermfg=None
 
 " Change Color when entering Insert Mode
@@ -315,7 +351,7 @@ highlight  CursorColumn ctermbg=DarkGrey ctermfg=None
 "autocmd InsertEnter * highlight Cursor guifg=red ctermfg=blue
 
 " Revert Color to default when leaving Insert Mode
-autocmd InsertLeave * highlight CursorLine ctermbg=None ctermfg=None
+" autocmd InsertLeave * highlight CursorLine ctermbg=None ctermfg=None
 autocmd InsertLeave * highlight Cursor guifg=red
 
 "PLUGINS
@@ -364,13 +400,6 @@ nnoremap F zr
 "autocmd FileType c setlocal foldmethod=syntax
 "autocmd FileType c nnoremap f zM
 "autocmd FileType c nnoremap F zR
-
-"Tags 
-" ctags -R src/  -- sets up a tags file which allows definition jumping
-" with Ctrl-] and Ctrl-T to jump back. ( or g] )
-"semicolon means it starts in the cur dir and searches up directories until it
-"hits a tags file
-set tags=tags;
 
 set completeopt+=longest
 
@@ -546,8 +575,11 @@ autocmd FileType text             let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
+autocmd FileType sql              let b:comment_leader = '-- '
+"noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+"noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>C :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-"Title Blocks
+" Title sections
 noremap <silent> <leader>t :s/^/[[ /e<CR>:nohlsearch<CR> :s/$/ ]]/e<CR>:nohlsearch<CR>
