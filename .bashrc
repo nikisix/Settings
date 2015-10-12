@@ -61,7 +61,6 @@ alias cols='__cols'
 function __killps { kill -9 `ps | grep $1 | head -n1 | cut -f1 -d ' '`; }
 alias killps='__killps'
 
-# export PGPASSWORD=DataSci@Production@Protection\!
 export PGPASSFILE=~/.pgpass
 
 # alias ipython='ipython --matplotlib osx'

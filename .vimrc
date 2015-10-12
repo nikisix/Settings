@@ -8,11 +8,6 @@
 "<leader>slt - SQL List Table - lists all of the tables of the db
 "<leader>sdt - SQL Describe Table - describes the table whose name is under your cursor
 "<leader>se  - SQL Execute - executes the line your cursor is on (command mode) or all selected text (visual mode)
-  let g:dbext_default_profile_mmpropdata='type=PGSQL:host=psci01:port=5432:dbname=mmpropdata:user=data:passwd=attract2extensive3everyone7boundary17'
-  let g:dbext_default_profile_warehousedb='type=PGSQL:host=warehousedb:port=5432:dbname=mmpropdata:user=postgres:passwd=postgres'
-  let g:dbext_default_profile_qdb01='type=PGSQL:host=146.148.43.234:port=5432:dbname=mm2qa:user=data:passwd=Skill4Forgive1Representative1Hasten12'
-  let g:dbext_default_profile_vagrant='type=PGSQL:host=10.0.10.2:port=5432:dbname=mm2qa:user=postgres'
-  let g:dbext_default_profile_pdbsix='type=PGSQL:host=pdbsix:port=5432:dbname=mm2prod:user=postgres:passwd=mm2pwd'
 "   let g:dbext_default_prompt_for_variables=0
   let dbext_default_always_prompt_for_variables=-1
 
