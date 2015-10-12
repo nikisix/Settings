@@ -9,8 +9,12 @@
 "<leader>sdt - SQL Describe Table - describes the table whose name is under your cursor
 "<leader>se  - SQL Execute - executes the line your cursor is on (command mode) or all selected text (visual mode)
   let g:dbext_default_profile_mmpropdata='type=PGSQL:host=psci01:port=5432:dbname=mmpropdata:user=data:passwd=attract2extensive3everyone7boundary17'
+  let g:dbext_default_profile_warehousedb='type=PGSQL:host=warehousedb:port=5432:dbname=mmpropdata:user=postgres:passwd=postgres'
   let g:dbext_default_profile_qdb01='type=PGSQL:host=146.148.43.234:port=5432:dbname=mm2qa:user=data:passwd=Skill4Forgive1Representative1Hasten12'
   let g:dbext_default_profile_vagrant='type=PGSQL:host=10.0.10.2:port=5432:dbname=mm2qa:user=postgres'
+  let g:dbext_default_profile_pdbsix='type=PGSQL:host=pdbsix:port=5432:dbname=mm2prod:user=postgres:passwd=mm2pwd'
+"   let g:dbext_default_prompt_for_variables=0
+  let dbext_default_always_prompt_for_variables=-1
 
 "===================VUNDLE========================================
 set nocompatible              " be iMproved, required
@@ -32,17 +36,19 @@ autocmd! CursorMovedI
 " set the runtime path to include Vundle and initialize
  set rtp+=~/.vim/bundle/Vundle.vim
  call vundle#begin()
-" Plugin 'vim-scripts/Command-T'
  Plugin 'wolfpython/cscope_map.vim'
- Plugin 'vim-scripts/csv.vim'
-"  Plugin 'vim-scripts/EasyGrep'
-"  Plugin 'jmcantrell/vim-virtualenv'
-"  Plugin 'tpope/vim-fugitive'
- Plugin 'Valloric/YouCompleteMe'
+ Plugin 'hrj/vim-DrawIt'
  Plugin 'scrooloose/nerdtree'
  Plugin 'carlobaldassi/ConqueTerm'
  Plugin 'itchyny/calendar.vim'
- Plugin 'vim-scripts/dbext.vim'
+ Plugin 'vim-scripts/csv.vim'
+"  Plugin 'vim-scripts/dbext.vim'
+"  Plugin 'Valloric/YouCompleteMe'
+
+" Plugin 'vim-scripts/Command-T'
+"  Plugin 'vim-scripts/EasyGrep'
+"  Plugin 'jmcantrell/vim-virtualenv'
+"  Plugin 'tpope/vim-fugitive'
 " Plugin 'ervandew/supertab'
  " alternatively, pass a path where Vundle should install plugins
  "call vundle#begin('~/some/path/here')
@@ -91,10 +97,12 @@ augroup CalendarKey
     "autocmd FileType calendar nunmap <buffer> {key}
 augroup END
 
+" YCM needs this to work:
+"  let g:ycm_path_to_python_interpreter = '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python'
+
 "YouCompleteMe Debugging
 " let g:ycm_server_keep_logfiles = 0
 " let g:ycm_server_log_level = 'debug'
- let g:ycm_path_to_python_interpreter = '/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python'
 " let g:ycm_auto_trigger = 1
 " "let g:ycm_path_to_python_interpreter = '/Users/ntomasino/anaconda/bin/python'
 " let g:ycm_filetype_blacklist = {}
@@ -103,7 +111,7 @@ augroup END
 let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
 "SUPERTAB
 "au FileType python set omnifunc=pythoncomplete#Complete
-"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = \"context"
 "set completeopt=menuone,longest,preview
 "=================================================================
 "
@@ -567,10 +575,11 @@ autocmd FileType text             let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
 autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
-" autocmd FileType sql              let b:comment_leader = '\-\- '
 autocmd FileType sql              let b:comment_leader = '-- '
 "noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 "noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>C :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" Title sections
 noremap <silent> <leader>t :s/^/[[ /e<CR>:nohlsearch<CR> :s/$/ ]]/e<CR>:nohlsearch<CR>
