@@ -1,4 +1,5 @@
-export PS1="\w☾♂☽ "
+source ~/.git-prompt.sh
+export PS1="\w\$(__git_ps1)☾♂☽ "
 
 #=================================================|
 # added by Miniconda 3.10.1 installer
@@ -35,7 +36,7 @@ export JAVA_HOME=$JDK_HOME
 #export GROOVY_HOME=/usr/share/groovy
 #export PATH=$PATH:$GROOVY_HOME/bin
 #export PATH=$PATH:$JAVA_HOME/bin:$GROOVY_HOME/bin
-export HOMEBREW_GITHUB_API_TOKEN=850fbe3c22137c760122bccded5916c785b090c8
+export HOMEBREW_GITHUB_API_TOKEN=c58ddb582f1e6aaec24c474fc5c87dc110c96379
 #export VMAIL_VIM=mvim
 export VMAIL_VIM='/Applications/MacVim.App/Contents/MacOS/Vim'
 #export VMAIL_VIM=gvim
@@ -49,18 +50,19 @@ alias sl='ls -GF'
 alias gits='git status'
 alias weather='weather -ikcmi --city "Kansas City" --st MO -f'
 alias matrix='cmatrix -sabu2'
-function __google { elinks "google.com/search?q=$*"; }
+function __google { w3m "google.com/search?q=$*"; }
 alias google='__google'
 alias news='newsbeuter'
 alias vi='/Applications/MacVim.App/Contents/MacOS/Vim'
 function __csv { cat $1 | column -s, -t | vi -; }
 alias csv='__csv'
 alias clock='watch -n1 "date '+%D%n%T'|figlet -k"'
-function __cols { head -n1 $1 | gsed 's/,/\n/g' | less; }
+function __cols { head -n1 $1 | gsed 's/,/\n/g' | less -N; }
 alias cols='__cols'
 function __killps { kill -9 `ps | grep $1 | head -n1 | cut -f1 -d ' '`; }
 alias killps='__killps'
 
+# export PGPASSWORD=DataSci@Production@Protection\!
 export PGPASSFILE=~/.pgpass
 
 # alias ipython='ipython --matplotlib osx'
@@ -72,3 +74,7 @@ source '/Users/ntomasino/y/google-cloud-sdk/path.bash.inc'
 # The next line enables bash completion for gcloud.
 source '/Users/ntomasino/y/google-cloud-sdk/completion.bash.inc'
 alias ff='. /Users/ntomasino/.ff/ff.sh'
+alias floppydb='psql -dpropdata -hfloppyjoe -Upostgres'
+alias warehousedb='psql -x -dpropdata -hwarehousedb -Upostgres'
+alias stagedb='psql -x -dmm2stage -hsdb01 -Umysidewalk'
+alias scidb='psql -x -dpropdata -hscidb -Upostgres'

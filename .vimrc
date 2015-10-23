@@ -8,8 +8,13 @@
 "<leader>slt - SQL List Table - lists all of the tables of the db
 "<leader>sdt - SQL Describe Table - describes the table whose name is under your cursor
 "<leader>se  - SQL Execute - executes the line your cursor is on (command mode) or all selected text (visual mode)
-"   let g:dbext_default_prompt_for_variables=0
-  let dbext_default_always_prompt_for_variables=-1
+"   let g:dbext_default_profile_mmpropdata='type=PGSQL:host=psci01:port=5432:dbname=mmpropdata:user=data:passwd=attract2extensive3everyone7boundary17'
+"   let g:dbext_default_profile_warehousedb='type=PGSQL:host=warehousedb:port=5432:dbname=mmpropdata:user=postgres:passwd=postgres'
+"   let g:dbext_default_profile_qdb01='type=PGSQL:host=146.148.43.234:port=5432:dbname=mm2qa:user=data:passwd=Skill4Forgive1Representative1Hasten12'
+"   let g:dbext_default_profile_vagrant='type=PGSQL:host=10.0.10.2:port=5432:dbname=mm2qa:user=postgres'
+"   let g:dbext_default_profile_pdbsix='type=PGSQL:host=pdbsix:port=5432:dbname=mm2prod:user=postgres:passwd=mm2pwd'
+" "   let g:dbext_default_prompt_for_variables=0
+"   let dbext_default_always_prompt_for_variables=-1
 
 "===================VUNDLE========================================
 set nocompatible              " be iMproved, required
@@ -17,12 +22,19 @@ filetype off                  " required
 
 " sum up numbers on multible lines in a visual selection
 "vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g<CR>_j
-"vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g_j<CR>+1!bc<CR>kJ
-"vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>'[yyP:.s/./=/g_j<CR>
 "vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>'[0"wy$:.s§.*§\=w§<CR>i==<CR><ESC>V:!bc<CR>
 
 "works - just not with whitespace, turn off highlighting
-vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>i==<CR><ESC>V:!bc<CR>
+" vmap gs y'>p:'[,']-1s/$/+/\|'[,']+1j!<CR>i==<CR><ESC>V:!bc<CR>
+let g:S = 0  "result in global variable S
+function! Sum(number)
+  let g:S = g:S + a:number
+  return a:number
+endfunction
+
+command! Addup let g:S=0 | %s/\d\+/\=Sum(submatch(0))/ | echo g:S
+
+
 
 "ConqueTerm Warning
 autocmd! CursorHoldI
@@ -69,9 +81,13 @@ autocmd! CursorMovedI
 
  " All of your Plugins must be added before the following line
  call vundle#end()            " required
- filetype plugin indent on    " required
+"  filetype plugin indent on    " required
  " To ignore plugin indent changes, instead use:
- "filetype plugin on
+" filetype plugin on
+
+" Above lines keep crashing vim on a sql file, switching to the below may
+" screw up vundle
+filetype on
  "
  " Brief help
  " :PluginList       - lists configured plugins
@@ -103,7 +119,8 @@ augroup END
 " let g:ycm_filetype_blacklist = {}
 
 "VirtualEnv
-let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
+" let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
+
 "SUPERTAB
 "au FileType python set omnifunc=pythoncomplete#Complete
 "let g:SuperTabDefaultCompletionType = \"context"
@@ -125,8 +142,8 @@ let g:virtualenv_directory = '/Users/ntomasino/miniconda/'
 
 " Change between files more quickly when editing multiple files
 " use :files to see all open files
- nnoremap b :buffers<CR>
- nnoremap ` :buffers<CR>:buffer<SPACE>
+ nnoremap b :buffers<CR>:buffer<SPACE>
+"  nnoremap ` :buffers<CR>:buffer<SPACE>
 
 "Tags 
 " ctags -R src/  -- sets up a tags file which allows definition jumping
@@ -155,6 +172,11 @@ hi clear SpellBad
 hi SpellBad cterm=underline
 "  setlocal spell spelllang=en_us "uncomment this to allow spell-checking
 
+" Jump to opening or closing parenthesis when typing out the other
+set showmatch
+set matchtime=3
+" highlight all interviegning text when jumping to a matching paren
+noremap % v%
 
 " Mouse and backspace
 "" set mouse=a  " on OSX press ALT and click
@@ -286,7 +308,7 @@ hi SpellBad cterm=underline
 
 "Load plugins from pathogen and vimballs in the .vim/ directory
 ""execute pathogen#infect()
-filetype plugin on "might change to just 'filetype on'
+" filetype plugin on "might change to just 'filetype on'
 
 
 "Route the semi-colon as a colon to type commands faster
