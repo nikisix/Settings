@@ -10,8 +10,9 @@
 "<leader>se  - SQL Execute - executes the line your cursor is on (command mode) or all selected text (visual mode)
 "   let g:dbext_default_profile_mmpropdata='type=PGSQL:host=psci01:port=5432:dbname=mmpropdata:user=data:passwd=attract2extensive3everyone7boundary17'
 "   let g:dbext_default_profile_warehousedb='type=PGSQL:host=warehousedb:port=5432:dbname=mmpropdata:user=postgres:passwd=postgres'
-"   let g:dbext_default_profile_qdb01='type=PGSQL:host=146.148.43.234:port=5432:dbname=mm2qa:user=data:passwd=Skill4Forgive1Representative1Hasten12'
+"   let g:dbext_default_profile_qdb01='type=PGSQL:host=qdb01:port=5432:dbname=mm2qa:user=data:passwd=Skill4Forgive1Representative1Hasten12'
 "   let g:dbext_default_profile_vagrant='type=PGSQL:host=10.0.10.2:port=5432:dbname=mm2qa:user=postgres'
+let g:dbext_default_profile_floppyjoe='type=PGSQL:host=floppyjoe:port=5432:dbname=propdata:user=postgres'
 "   let g:dbext_default_profile_pdbsix='type=PGSQL:host=pdbsix:port=5432:dbname=mm2prod:user=postgres:passwd=mm2pwd'
 " "   let g:dbext_default_prompt_for_variables=0
 "   let dbext_default_always_prompt_for_variables=-1
@@ -49,7 +50,7 @@ autocmd! CursorMovedI
  Plugin 'carlobaldassi/ConqueTerm'
  Plugin 'itchyny/calendar.vim'
  Plugin 'vim-scripts/csv.vim'
-"  Plugin 'vim-scripts/dbext.vim'
+ Plugin 'vim-scripts/dbext.vim'
 "  Plugin 'Valloric/YouCompleteMe'
 
 " Plugin 'vim-scripts/Command-T'
@@ -125,10 +126,13 @@ augroup END
 "au FileType python set omnifunc=pythoncomplete#Complete
 "let g:SuperTabDefaultCompletionType = \"context"
 "set completeopt=menuone,longest,preview
-"=================================================================
+"=============================6vi==================================
 "
 " Automatic reloading of .vimrc
  autocmd! bufwritepost .vimrc source %
+
+"Delete Line
+noremap <leader>d d$
 
 " home and end, page up and page down mappings 
  noremap H <home>
@@ -261,7 +265,7 @@ noremap % v%
  set fo-=t   " don't automatically wrap text when typing
  set colorcolumn=120
  highlight ColorColumn ctermbg=DarkGrey
- hi CSVColumnEven term=bold ctermbg=4 guibg=DarkBlue                             
+ hi CSVColumnEven term=bold ctermbg=brown guibg=Brown                             
  hi CSVColumnOdd  term=bold ctermbg=darkgrey guibg=DarkGrey
 
 " easier formatting of paragraphs
@@ -585,14 +589,15 @@ autocmd FileType c map <F3> :!./%.out<CR>
 "autocmd FileType java,groovy,scala nnoremap c i//<ESC>
 "
 " Commenting blocks of code.
-autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-autocmd FileType conf,fstab       let b:comment_leader = '# '
-autocmd FileType text             let b:comment_leader = '# '
-autocmd FileType tex              let b:comment_leader = '% '
-autocmd FileType mail             let b:comment_leader = '> '
-autocmd FileType vim              let b:comment_leader = '" '
-autocmd FileType sql              let b:comment_leader = '-- '
+autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
+autocmd FileType sh,ruby,python   let b:comment_leader = '#'
+autocmd FileType conf,fstab       let b:comment_leader = '#'
+autocmd FileType text             let b:comment_leader = '#'
+autocmd FileType sed              let b:comment_leader = '#'
+autocmd FileType tex              let b:comment_leader = '%'
+autocmd FileType mail             let b:comment_leader = '>'
+autocmd FileType vim              let b:comment_leader = '"'
+autocmd FileType sql              let b:comment_leader = '--'
 "noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 "noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 noremap <silent> <leader>c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>

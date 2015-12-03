@@ -68,6 +68,7 @@ inotify
 
 [[ Mount_SMB_share_linux ]]
     mount.cifs -o username=mmadmin,password=mypass //10.0.4.30/Data /media/z-drive
+    sudo mount.cifs -o rw,username=mmadmin,password=pwd,iocharset=utf8,file_mode=0777,dir_mode=0777 //10.0.4.30/Data /media/z-drive
 
 [[ Terminal_Shortcuts ]]
     ctrl-a cursor to beginning of line
@@ -91,22 +92,34 @@ inotify
 
 
 [[ dump data from db ]]
-    echo "COPY apportion_block TO STDOUT DELIMITER ',' CSV HEADER;" | psql -h hostname -U postgres databasename > ./apportion_block.csv
+    echo "COPY apportion_block TO STDOUT DELIMITER ',' CSV HEADER;" | psql -h 104.197.97.118 -U postgres mm2prod > ./apportion_block.csv
 
 [[ copy data up to qa using shp2pgsql ]]
     shp2pgsql -s 3857 -d -D blk_grp_centroid2010.shp public.science_blockgroupcentroid| psql -h mm2qa -p 5432 -d mm2qa -U postgres
 
 [[ copy single table between databases ]]
-psql databasename -c \
-"\copy (SELECT i, t FROM original_table ORDER BY i) TO STDOUT" | \
-psql databasename -c "\copy copy_table (i, t) FROM STDIN"
+    psql databasename -c \
+    "\copy (SELECT i, t FROM original_table ORDER BY i) TO STDOUT" | \
+    psql databasename -c "\copy copy_table (i, t) FROM STDIN"
 
 [[ secure port-forwarded connect to cloud db ]]
-ssh -i ~/.ssh/google_compute_engine -L5433:127.0.0.1:5433 -v warehousedb
+    ssh -i ~/.ssh/google_compute_engine -L5433:127.0.0.1:5433 -vvv 146.148.89.144
+    ssh -i ~/.ssh/google_compute_engine -L5433:127.0.0.1:5433 -v warehousedb
+    ssh -i ~/.ssh/google_compute_engine -L5433:127.0.0.1:5433 -v sot
 
 [[ update change aggregate subtype of all census columns ]]
-gsed -r -n '/__median__|__mean__/p' columns.txt
-gsed -r 's/(.*)__median__|__mean__(.*)/\1__total__\2/g' columns.txt
+    gsed -r -n '/__median__|__mean__/p' columns.txt
+    gsed -r 's/(.*)__median__|__mean__(.*)/\1__total__\2/g' columns.txt
 
 [[ diff between last commited file ]]
-git diff HEAD^^ myfile
+    git diff HEAD^^ myfile
+
+[[ recursive find replace ]]
+    find . -type f -exec gsed -i 's/findme/replacewith/g' {} +
+
+[[ INSTALL PYPI PACKAGES FROM LOCAL REPO ]]
+    pip install -e code/git/programs/pymc3
+
+[[ OBTAIN CURRENT PANDORA TLS FINGERPRINT ]]
+    openssl s_client -connect tuner.pandora.com:443 < /dev/null 2> /dev/null | \
+        openssl x509 -noout -fingerprint | tr -d ':' | cut -d'=' -f2
