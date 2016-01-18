@@ -1,0 +1,12 @@
+Title: NIPS 2015: Speech Processing (Yoshua Bengio)
+Author: 
+Date: Tue, 08 Dec 2015 08:05:49 -0600
+Link: http://www.reddit.com/r/MachineLearning/comments/3vxht4/nips_2015_speech_processing_yoshua_bengio/
+
+[image 2][1] submitted by  alexcaps [3][link][4][1 comment][1]
+
+Links: 
+[1]: http://www.reddit.com/r/MachineLearning/comments/3vxht4/nips_2015_speech_processing_yoshua_bengio/ (link)
+[2]: http://b.thumbs.redditmedia.com/aoA1hTGVT0GRRf9TcVxpaypo8mmHlTTfMZUOcwk2NDc.jpg (image)
+[3]: https://www.reddit.com/user/alexcaps (link)
+[4]: https://www.youtube.com/watch?v=LjmWcgmJqVE (link)

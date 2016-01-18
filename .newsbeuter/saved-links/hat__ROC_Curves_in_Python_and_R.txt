@@ -1,0 +1,11 @@
+Title: ŷhat | ROC Curves in Python and R
+Author: 
+Date: Mon, 15 Jun 2015 22:47:44 -0500
+Link: http://www.reddit.com/r/pystats/comments/39zz1p/ŷhat_roc_curves_in_python_and_r/
+
+submitted by  carmichael561 [1][link][2][comment][3]
+
+Links: 
+[1]: https://www.reddit.com/user/carmichael561 (link)
+[2]: http://blog.yhathq.com/posts/roc-curves.html (link)
+[3]: http://www.reddit.com/r/pystats/comments/39zz1p/ŷhat_roc_curves_in_python_and_r/ (link)

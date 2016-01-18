@@ -1,0 +1,16 @@
+Title: Bayesian statistics: a comprehensive course
+Author: 
+Date: Mon, 07 Dec 2015 19:18:49 -0600
+Link: http://www.reddit.com/r/statistics/comments/3vv9jo/bayesian_statistics_a_comprehensive_course/
+
+I have previously read a post or two from users who complained that they 
+couldn't find much entry-level stuff on Bayesian statistics.
+
+Feel free to check out Ben Lambert's videos[1].
+submitted by  qtian12 [2][link][3][2 comments][4]
+
+Links: 
+[1]: https://www.youtube.com/playlist?list=PLFDbGp5YzjqXQ4oE4w9GVWdiokWB9gEpm (link)
+[2]: https://www.reddit.com/user/qtian12 (link)
+[3]: https://www.reddit.com/r/statistics/comments/3vv9jo/bayesian_statistics_a_comprehensive_course/ (link)
+[4]: http://www.reddit.com/r/statistics/comments/3vv9jo/bayesian_statistics_a_comprehensive_course/ (link)

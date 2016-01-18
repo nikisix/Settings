@@ -1,0 +1,11 @@
+Title: NeoRL - Reinforcement Learning
+Author: 
+Date: Mon, 07 Dec 2015 20:36:49 -0600
+Link: http://www.reddit.com/r/MachineLearning/comments/3vvkei/neorl_reinforcement_learning/
+
+submitted by  CireNeikual [1][link][2][comment][3]
+
+Links: 
+[1]: https://www.reddit.com/user/CireNeikual (link)
+[2]: http://twistedkeyboardsoftware.com/?p=122 (link)
+[3]: http://www.reddit.com/r/MachineLearning/comments/3vvkei/neorl_reinforcement_learning/ (link)

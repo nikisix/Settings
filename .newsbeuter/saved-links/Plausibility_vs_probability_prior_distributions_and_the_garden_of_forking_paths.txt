@@ -1,0 +1,143 @@
+Title: Plausibility vs. probability, prior distributions, and the garden of forking paths
+Author: Andrew
+Date: Mon, 04 Jan 2016 09:41:22 -0600
+Link: http://andrewgelman.com/2016/01/04/plausibility-vs-probability-prior-distributions-garden-forking-paths/
+
+I’ll start off this blog on the first work day of the new year with an 
+important post connecting some ideas we’ve been lately talking a lot about.
+
+Someone rolls a die four times, and he tells you he got the numbers 1, 4, 3, 6.
+Is this a plausible outcome? Sure. Is is probable? No. The prior probability of
+this event is only 1 in 1296.
+
+The point is, lots and lots of things are plausible, but they can’t all be 
+probable, cos total probability sums to 1.
+
+I was thinking about this when responding to a comment[1] about a post[2] on a 
+recent bit of noise from Psychological Science. Somehow we ended up discussing 
+those classic and notorious[3] “embodied cognition” experiments, and the 
+exchange went like this:
+
+  Me: These sorts of studies get published, and publicized, in part because of 
+  their surprise value. (Elderly-related words can prime slow walking! Wow, 
+  what a surprise!) But when a claim is surprising, that indeed can imply that 
+  a reasonable prior will give that claim a low probability.
+
+  Daniel: With findings about priming and embodied cognition, it doesn’t seem 
+  particularly outrageous to me that a response to physical instability could 
+  easily influence our perceptions of other things in the moment as well, 
+  including romantic relationships. Part of the reason we use the peer-review 
+  process, as flawed as it is, is because experts in the field have the 
+  judgment to decide not only if a study is worthy, but if its claims are 
+  reasonably supported in the context of the theories and findings in a 
+  particular field. The hypotheses in this paper are supported by a vast amount
+  of work on priming and embodied cognition research . . .
+
+  Martha: I was under the impression that most of the findings about priming 
+  and embodied cognition had been discredited (e.g., failure to replicate, 
+  flaws in analysis).
+
+  Daniel: Priming itself is an extremely well-replicated phenomenon. With 
+  social primes (a subset of priming research), there have been a large number 
+  of studies demonstrating the effect with a few notable failures to replicate 
+  (Doyen et al. being one of the most notable due to the online discussion that
+  ensued). Many of the replications haven’t taken into account advances in 
+  moderators that flip around the behavioural effects of social priming 
+  research. . . .
+
+  Me: Regarding plausibility, one might equally argue, for example, that being 
+  primed with elderly-related words will make college students walk faster, as 
+  this would prime their self-identities as young people. Whatever. Theories 
+  are a dime a dozen. These papers get published because they purport to have 
+  definitive evidence, and they don’t.
+
+  Daniel: Regarding priming, I’m assuming you’re referring to Bargh’s paper and
+  then failed replication attempt by Doyen et al. One of the most frustrating 
+  things about that exchange is that the field had already moved on to a deeper
+  understanding of social category priming, with the Cesario, Higgins and Plaks
+  2006 “motivated preparation to interact account”. They found that people who 
+  like the elderly walk slower when primed, while people who dislike the 
+  elderly walk faster (among other findings). I don’t really care whether Bargh
+  got lucky with his sample or what was going on, but a replication attempt 
+  should take into account advances in the field, particularly with a moderator
+  that can flip the effect around.
+
+  Me: I see no strong evidence. What I see is noise-mining. Each new study 
+  finds a new interaction, meanwhile the original claimed effects disappear 
+  upon closer examination.
+
+We could go on forever on the specifics, but here let me make a combinatorial 
+argument. It goes like this. There could be a main effect of elderly-related 
+words on walking speed. As discussed above, I think a main effect in either 
+direction would be plausible. Or there could be an interaction with whether you
+like the elderly. Again, I can see either a positive or negative interaction 
+making sense. There could be an interaction with sex, or socioeconomic status, 
+or whether you have an older brother or sister. Or an interaction with your 
+political attitudes, or with your own age, or with the age of your parents, or 
+with whether your parents are alive, or with whether your grandparents are 
+alive. Or an interaction with your marital status, or with your relationship 
+status, or with whether you have kids, or with the sex of your first child. It 
+would not be difficult to come up with 1296 of these—maybe even 1296 
+possibilities, each of which has appeared somewhere as a moderator in the 
+psychology literature.
+
+And here’s the point: any of these interactions are plausible, but they can’t 
+all be probable. It’s not as simple as the die-rolling scenario at the top of 
+this post—the different possible interactions are not quite mutually 
+exclusive—but the basic mathematical idea is still there, that it’s not 
+possible for all these large effects to be happening together.
+
+OK, embodied cognition is a joke. No need for me to pile on it here. It’s a 
+fading fad that eventually even Psychological Science, PPNAS, and those 
+Ted-talk people will tire of.
+
+Here I’m interested in something larger, which is how to think about prior 
+distributions in this sort of open-ended research scenario.
+
+One reason I like the idea of analyzing all comparisons at once using 
+multilevel modeling is that this will automatically stabilize estimates. A 
+multilevel model is a mathematical expression of the idea that these 
+interactions can’t all be large, indeed most of them have to be small.
+
+This is not to say that no large effects can ever exist—remember, I did say 
+that these hypotheses are individually plausible. They’re just individually 
+improbable, which is why we need strong evidence to move forward on them. 
+Somebody doing a study where they found an interaction with “p less than .05,” 
+no, that’s not strong evidence. That’s where forking paths comes in. Forking 
+paths comes into the p-value calculation, and forking paths comes into the 
+prior. If you want to go full Bayes, that’s fine with me, then you don’t have 
+to worry about other analyses the researcher might have done, you just have to 
+worry about other models of the world that are just as plausible as your 
+current favorite (for example, “people who like the elderly walk slower when 
+primed, while people who dislike the elderly walk faster”).
+
+P.S. Commenter Garnett asked why I say that all these large effect can’t be 
+happening together. So here’s a slight elaboration of this point:
+
+The basic idea is that you can’t have dozens of large effects and interactions 
+all floating around at once, as this would imply an unrealistic distribution of
+outcomes. Consider that notorious example of menstrual cycle and clothing, 
+which then was said to interact with temperature and could also interact with 
+age, relationship status, number of siblings, political and religious 
+attitudes, etc etc etc. If many of these interactions were large, you’d end up 
+with silly claims such as that 50% of women in some category would be wearing 
+red on some prespecified day in their cycle.
+
+In a predictive model, there’s only so much “juice” to go around. We’re used to
+thinking of this in the context of R-squared or out-of-sample prediction error,
+but the same principle applies when considering comparisons or effects. And, 
+thus, once you’re considering zillions of possible effects and interactions, 
+their common distribution has to be peaked around zero.
+
+I think there’s a theorem in there for someone who’d like to do some digging.
+
+The post Plausibility vs. probability, prior distributions, and the garden of 
+forking paths[4] appeared first on Statistical Modeling, Causal Inference, and 
+Social Science[5].
+
+Links: 
+[1]: http://andrewgelman.com/2015/12/26/turbulent-studies-rocky-statistics-publicational-consequences-of-experiencing-inferential-instability/#comment-256152 (link)
+[2]: http://andrewgelman.com/2015/12/26/turbulent-studies-rocky-statistics-publicational-consequences-of-experiencing-inferential-instability/ (link)
+[3]: http://andrewgelman.com/2014/09/03/disagree-alan-turing-daniel-kahneman-regarding-strength-statistical-evidence/ (link)
+[4]: http://andrewgelman.com/2016/01/04/plausibility-vs-probability-prior-distributions-garden-forking-paths/ (link)
+[5]: http://andrewgelman.com (link)

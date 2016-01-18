@@ -1,0 +1,11 @@
+Title: Code: Neural machine translation between the writings of Shakespeare and modern English using TensorFlow
+Author: 
+Date: Mon, 07 Dec 2015 19:04:17 -0600
+Link: http://www.reddit.com/r/MachineLearning/comments/3vv7it/code_neural_machine_translation_between_the/
+
+submitted by  cryptocerous [1][link][2][comment][3]
+
+Links: 
+[1]: https://www.reddit.com/user/cryptocerous (link)
+[2]: https://tensortalk.com/posts/gX76zzf6YgNcMD3QA/tokestermw-tensorflow-shakespeare-neural-machine-translation (link)
+[3]: http://www.reddit.com/r/MachineLearning/comments/3vv7it/code_neural_machine_translation_between_the/ (link)

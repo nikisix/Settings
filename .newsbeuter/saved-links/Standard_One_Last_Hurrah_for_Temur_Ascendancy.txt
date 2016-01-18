@@ -1,0 +1,195 @@
+Title: [Standard] One Last Hurrah for Temur Ascendancy
+Author: 
+Date: Mon, 18 Jan 2016 11:42:33 -0600
+Link: http://www.reddit.com/r/spikes/comments/41k01f/standard_one_last_hurrah_for_temur_ascendancy/
+
+Hey Spikes!
+
+I know it has never made top tier, but I have been having major success with a 
+Temur Ascendancy deck, both pre and post Oath. Basically, the deck maximizes 4+
+power creatures with evasion to steamroll the opposition, packaged with cheap 
+removal for early threats and sb counterspells for control and heavy removal 
+match-ups. I have only been able to test post-Oath in proxy, but I have found 
+the deck to do well vs. aggro, midrange, ramp, and Jeskai. So far, its only 
+weaknesses have been vs. decks with heavy sacrifice removal and hand 
+disruption. 
+
+Overall, I think the creature, counterspell and removal package of Temur makes 
+it an excellent color combo this standard. Sadly, the card advantage and haste 
+enabling of Ascendancy makes it a vital part of the deck. And obviously it will
+be rotating soon :(. 
+
+DECKLIST
+
+4 Temur Ascendancy
+
+4 Thunderbreak Regent
+
+4 Woodland Wanderer
+
+4 Thought-Knot Seer
+
+4 Reality Smasher
+
+4 Crater's Claws
+
+4 Draconic Roar
+
+3 Radiant Flames
+
+4 Stubborn Denial
+
+3 Frontier Bivouac 
+
+3 Yavimaya Coast
+
+3 Shivan Reef
+
+1 Canopy Vista
+
+1 Cinder Glade
+
+1 Prairie Stream
+
+2 Island
+
+1 Forest
+
+1 Plains
+
+1 Mountain
+
+2 Crumbling Vestige
+
+3 Windswept Heath
+
+3 Wooded Foothills
+
+SIDEBOARD
+
+1 Icefall Regent
+
+2 Dragonlord Dromoka
+
+1 Radiant Flames
+
+3 Icy Blast
+
+2 Spell Shrivel
+
+3 Pulse of Murasa
+
+3 Disdainful Stroke
+
+CARD BREAK DOWN
+
+Enchantments
+
+  * Temur Ascendancy: The all-star of this deck. It provides card advantage and
+    makes your threats extremely hard to deal with due to the limited amount of
+    instant speed removal currently in the format. A turn 4 hasty 5/5 or 6/6 
+    Woodland Wanderer is very hard to beat. Follow it up with another hasty 
+    creature turn 5 and you're already on the way to winning. It will also keep
+    your hand full and the threats coming, forcing your opponent to burn out 
+    their removal quickly. 
+
+I almost always win when I'm able to land a turn 3 Ascendancy, especially 
+because enchantment removal is pretty rare in the format currently. 
+
+Creatures
+
+  * 
+    Thunderbreak Regent: A 4/4 evasive creature with lightning strike built in 
+    is always a good thing. It also provides some air defense (although this 
+    deck is rarely on the defensive by turn 4). Also enables the bonus on 
+    Draconic Roar, although Roar is good regardless. 
+  * 
+    Woodland Wanderer: He is why I built the deck. IMO, Wanderer's only 
+    weakness is lack of haste. You give him that and he just destroys all other
+    4-drops easily. Playing him also turns starts the comeback vs. fast aggro, 
+    as he provides both amazing defense and offense. He's a planeswalker/token 
+    murderer. Smash! 
+  * 
+    Thought-Knot Seer: I am still on the fence about this guy, but I think he 
+    beats the alternatives of Savage Knuckleblade (faster but easily chumped) 
+    and Skyrider Elf (Scale-able evasion, but lackluster p/t). He doesn't have 
+    the evasion that this deck loves, but the hand disruption can sometimes be 
+    vital. 
+  * 
+    Reality Smasher: Second favorite creature after Woodland Wanderer. This guy
+    is nuts. The haste is sometimes redundant and sometimes not, but trample 
+    and being hard to remove make this very hard to deal with. It quickly 
+    closes out games. 
+
+Spells
+
+  * 
+    Crater's Claws: This belongs in every Temur deck. Clears away early threats
+    and the ferocious is very easy to activate. Fairly common to dome the 
+    opponent for 6 or more late game. If control or, more commonly, ramp, 
+    manages to stabilize a the last moment, finish them off by giving them the 
+    claw!
+  * 
+    Draconic Roar: Efficient early removal for Jace and all those fast aggro 
+    threats. 
+  * 
+    Radiant Flames: Yes, it is mainboard, but I find this card essential to 
+    beating fast aggro Game 1. It misses all of my own creatures and can be 
+    stacked with Roar or Claws to knock out larger threats. 
+  * 
+    Stubborn Denial: Another card that always makes sense in Temur. Ferocious 
+    is easily activated and offers some mb protection. 
+
+Lands
+
+I am no mana guru, but I tried to make the land base as consistent as possible,
+while providing ample colorless sources for Thought-Knot and Reality Smasher. I
+needed a 4th color for Wanderer, so I decided to splash white for DL Dromoka. 
+Not sure if this is the right move, but it seems to work so far! 
+
+Sideboard
+
+I am pretty unsure about most of the sideboard, but all of the cards have been 
+useful so far. 
+
+  * 
+    Icefall Regent: Good vs. midrange and control. I'm still testing how it 
+    compares to the other threats.
+  * 
+    DL Dromoka: Great vs. midrange and control. 
+  * 
+    Radiant Flames: All-star vs. aggro. 
+  * 
+    Icy Blast: My favorite spell in the deck. It can be useful as a 1 or 2 of 
+    vs. fast aggro, but really shines vs. midrange where there are threats that
+    can put up a fight vs. Temur (Rhino, Smasher, Tasigur, etc). Take out 
+    blockers for one turn and the opponent is in trouble. Take them out for 2 
+    turns with Ferocious, and they are dead. 
+  * 
+    Spell Shrivel: I don't know if this is the best counterspell for the deck 
+    after Stubborn Denial and Disdainful Stroke, but I like that it counters 
+    everything, exiles, and isn't hard on the early land base. I bring it in 
+    vs. spell heavy decks, ramp, control, and midrange. 
+  * 
+    Pulse of Murasa: Is this good? I feel like it is good. I've always been 
+    bothered by Feed the Clan, since giving myself life just seems so ... 
+    boring. Pulse not only gives life, but returns a creature (and all the 
+    creatures are good). It can also help smooth out the mana base. Being an 
+    instant is extremely important, as it allows me to hold up counterspells 
+    and use this as an eot alternative. 
+  * 
+    Disdainful Stroke: Great vs. Ramp. Not for countering the big threats, but 
+    for countering the ramp spells. Ascendancy + big creatures usually kills 
+    ramp before they can cast anything big. 
+
+What do you guys think? I've been trying to make Ascendancy work for months, 
+and I think that this might be the best standard for it now that Dromoka's 
+Command is seeing less play and instant speed removal is scarce. It is slow vs.
+aggro, but can remove early threats easily, and fast vs. control and ramp. And 
+it's virtually chump block proof! All suggestions welcome!
+submitted by  GaulzeGaul [1][link][2][13 comments][3]
+
+Links: 
+[1]: https://www.reddit.com/user/GaulzeGaul (link)
+[2]: https://www.reddit.com/r/spikes/comments/41k01f/standard_one_last_hurrah_for_temur_ascendancy/ (link)
+[3]: http://www.reddit.com/r/spikes/comments/41k01f/standard_one_last_hurrah_for_temur_ascendancy/ (link)

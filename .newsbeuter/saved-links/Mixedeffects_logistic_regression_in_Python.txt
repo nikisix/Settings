@@ -1,0 +1,11 @@
+Title: Mixed-effects logistic regression in Python?
+Author: 
+Date: Wed, 29 Apr 2015 20:09:51 -0500
+Link: http://www.reddit.com/r/pystats/comments/34cgeb/mixedeffects_logistic_regression_in_python/
+
+Is anybody aware of a mixed-effect logistic regression python package?
+submitted by  randomaccount33444 [1][link][2][6 comments][2]
+
+Links: 
+[1]: http://www.reddit.com/user/randomaccount33444 (link)
+[2]: http://www.reddit.com/r/pystats/comments/34cgeb/mixedeffects_logistic_regression_in_python/ (link)
